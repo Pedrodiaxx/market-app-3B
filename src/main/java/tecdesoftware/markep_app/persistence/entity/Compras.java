@@ -2,6 +2,8 @@ package tecdesoftware.markep_app.persistence.entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name= "compras")
 public class Compras {
@@ -15,7 +17,7 @@ public class Compras {
     @Column(name = "id_cliente")
     private Integer idCliente;
 
-    private String fecha;
+    private LocalDateTime fecha;
 
     @Column (name = "medio_pago")
     private String madioPago;
@@ -23,14 +25,6 @@ public class Compras {
     private String comentario;
 
     private Boolean estado;
-
-    public String getComentario() {
-        return comentario;
-    }
-
-    public void setComentario(String comentario) {
-        this.comentario = comentario;
-    }
 
     public Integer getIdCompra() {
         return idCompra;
@@ -48,11 +42,11 @@ public class Compras {
         this.idCliente = idCliente;
     }
 
-    public String getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 
@@ -62,6 +56,14 @@ public class Compras {
 
     public void setMadioPago(String madioPago) {
         this.madioPago = madioPago;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
     }
 
     public Boolean getEstado() {
