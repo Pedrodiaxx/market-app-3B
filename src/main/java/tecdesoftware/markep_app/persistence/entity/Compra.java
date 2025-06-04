@@ -3,10 +3,11 @@ package tecdesoftware.markep_app.persistence.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name= "compras")
-public class Compras {
+public class Compra {
 
     @Id //lave primaria
     //Hace el Id autoincrementar
@@ -25,6 +26,16 @@ public class Compras {
     private String comentario;
 
     private Boolean estado;
+
+    //Relación con la entidad cliente: Muchas compras a un cliente
+    @ManyToOne
+    //no quiero que se modifique la entidad cliente, solo relacionarla
+    @JoinColumn (name="id_cliente", insertable = false, updatable = false)
+    private Cliente cliente;
+
+    //Relacion con la entidad CompraProducto
+    @OneToMany (mappedBy = "producto")
+    private List< CompraProducto> productos;
 
     public Integer getIdCompra() {
         return idCompra;

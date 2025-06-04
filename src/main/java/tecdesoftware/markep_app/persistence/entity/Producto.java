@@ -28,6 +28,12 @@ public class Producto {
 
     private Boolean estado;
 
+    //Relación con la entidad cliente: Muchas compras a un cliente
+    @ManyToOne
+    //no quiero que se modifique la entidad cliente, solo relacionarla
+    @JoinColumn (name="categoria", insertable = false, updatable = false) //que no se modifique y unir
+    private Categoria categoria;
+
     public Double getPrecioVenta() {
         return precioVenta;
     }
