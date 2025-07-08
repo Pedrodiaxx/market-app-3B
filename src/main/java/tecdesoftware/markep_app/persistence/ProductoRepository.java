@@ -1,48 +1,58 @@
 package tecdesoftware.markep_app.persistence;
 
-import jdk.jfr.Registered;
+import tecdesoftware.markep_app.domain.Product;
+import tecdesoftware.markep_app.domain.repository.ProductRepository;
 import tecdesoftware.markep_app.persistence.crud.ProductoCrudRepository;
 import tecdesoftware.markep_app.persistence.entity.Producto;
+import tecdesoftware.markep_app.persistence.mapper.ProductMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
-//Le dice a Spring que este repositorio se conecta con la BD
-@Registered
-public class ProductoRepository {
+@Repository
+public class ProductoRepository implements ProductRepository {
 
+    @Autowired
     private ProductoCrudRepository productoCrudRepository;
 
-    //Este ejemplo me va a dar todos los productos de mi BD
-    public List<Producto> getALL() {
-        //convirtiendo un iterable<T> a una lista de productos List <Producto>
-        return (List<Producto>) productoCrudRepository.findAll();
+    @Autowired
+    private ProductMapper mapper;
+
+    @Override
+    public List<Product> getAll() {
+        return mapper.toProducts((List<Producto>) productoCrudRepository.findAll());
     }
 
-    //obtiener los productos por categoria ascedente
-    public List<Producto> findByCategoriaOrderByNombreAsc(int idcategoria) {
-        return productoCrudRepository.findByCategoriaOrderByNombreAsc(idcategoria);
+    @Override
+    public Optional<Product> getProduct(int productId) {
+        return productoCrudRepository.findById(productId)
+                .map(mapper::toProduct);
     }
 
-    public Optional<List<Producto>> getEscasos (int cantidad) {
-        return productoCrudRepository.findByCantidadStockLessThanAndEstado(cantidad, true);
+    @Override
+    public Optional<List<Product>> getByCategory(int categoryId) {
+        return Optional.of(mapper.toProducts(
+                productoCrudRepository.findByIdCategoriaOrderByNombreAsc(categoryId)));
     }
 
-    //obtener un metodo dado el id
-    public Optional<Producto> getProductoById(int idProducto) {
-        return productoCrudRepository.findById(idProducto);
+    @Override
+    public Product save(Product product) {
+        Producto producto = mapper.toProducto(product);
+        Producto productoGuardado = productoCrudRepository.save(producto);
+        return mapper.toProduct(productoGuardado);
     }
 
-    //Guardar un producto
-    public Producto saveProducto(Producto producto) {
-        return productoCrudRepository.save(producto);
+    @Override
+    public void delete(int productId) {
+        productoCrudRepository.deleteById(productId);
     }
 
-    //Borrar un producto
-    public void delete(Producto producto) {
-        productoCrudRepository.delete(producto);
+    @Override
+    public Optional<List<Product>> getScarseProducts(int quantity) {
+        return productoCrudRepository.findByCantidadStockLessThanAndEstado(quantity, true)
+                .map(mapper::toProducts);
     }
-
-
 
 }

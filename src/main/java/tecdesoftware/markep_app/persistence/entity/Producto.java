@@ -3,13 +3,12 @@ package tecdesoftware.markep_app.persistence.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name= "productos")
+@Table(name = "productos")
 public class Producto {
 
-    @Id //lave primaria
-    //Hace el Id autoincrementar
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "id_producto")
+    @Column(name = "id_producto")
     private Integer idProducto;
 
     private String nombre;
@@ -17,21 +16,19 @@ public class Producto {
     @Column(name = "id_categoria")
     private Integer idCategoria;
 
-    @Column (name = "codigo_barras")
+    @Column(name = "codigo_barras")
     private String codigoBarras;
 
-    @Column (name = "precio_venta")
+    @Column(name = "precio_venta")
     private Double precioVenta;
 
-    @Column (name = "cantidad_stock")
+    @Column(name = "cantidad_stock")
     private Integer cantidadStock;
 
     private Boolean estado;
 
-    //Relación con la entidad cliente: Muchas compras a un cliente
     @ManyToOne
-    //no quiero que se modifique la entidad cliente, solo relacionarla
-    @JoinColumn (name="categoria", insertable = false, updatable = false) //que no se modifique y unir
+    @JoinColumn(name = "id_categoria", insertable = false, updatable = false)
     private Categoria categoria;
 
     public Double getPrecioVenta() {

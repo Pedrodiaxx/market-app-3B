@@ -1,23 +1,19 @@
 package tecdesoftware.markep_app.persistence.crud;
 
-import org.springframework.data.repository.CrudRepository;
 import tecdesoftware.markep_app.persistence.entity.Producto;
+import org.springframework.data.repository.CrudRepository;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
 public interface ProductoCrudRepository extends CrudRepository<Producto, Integer> {
 
-    //Query methods
-    //SQL : Select*
-    //FROM: Categoria
-    //where Id_categoria = ?
+    //Query Methods
+    //SQL: SELECT *
+    //FROM Categoria
+    //WHERE id_categoria = x
     //ORDER BY Nombre ASC
-    List<Producto> findByCategoriaOrderByNombreAsc(int idcategoria);
+    List<Producto> findByIdCategoriaOrderByNombreAsc(int idCategoria);
 
-
-    Optional<List<Producto>> findByCantidadStockLessThanAndEstado(int cantidadStock, boolean estado);
-
+    Optional<List<Producto>> findByCantidadStockLessThanAndEstado(Integer cantidadStockIsLessThan, Boolean estado);
 }
-
