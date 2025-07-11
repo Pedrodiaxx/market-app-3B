@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface PurchaseRepository {
     List<Purchase> getAll();
-    Optional<List<Purchase>> getByClient(String client);
+    Optional<List<Purchase>> getByClient(Integer clienteId);
     Purchase save(Purchase purchase);
 }

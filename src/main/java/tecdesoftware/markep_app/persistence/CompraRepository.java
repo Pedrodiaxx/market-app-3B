@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class CompraRepository implements PurchaseRepository {
+public  class CompraRepository implements PurchaseRepository {
 
     @Autowired
     private CompraCrudRepository compraCrudRepository;
@@ -27,10 +27,11 @@ public class CompraRepository implements PurchaseRepository {
     }
 
     @Override
-    public Optional<List<Purchase>> getByClient(String clienteId) {
+    public Optional<List<Purchase>> getByClient(Integer clienteId) {
         return compraCrudRepository.findByIdCliente(clienteId)
                 .map(compra -> mapper.toPurchases(compra));
     }
+
 
     @Override
     public Purchase save(Purchase purchase) {

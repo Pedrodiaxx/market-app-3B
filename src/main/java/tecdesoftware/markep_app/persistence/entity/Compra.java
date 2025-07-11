@@ -21,7 +21,7 @@ public class Compra {
     private LocalDateTime fecha;
 
     @Column (name = "medio_pago")
-    private String madioPago;
+    private String medioPago;
 
     private String comentario;
 
@@ -34,7 +34,7 @@ public class Compra {
     private Cliente cliente;
 
     //Relacion con la entidad CompraProducto
-    @OneToMany (mappedBy = "compra", cascade = {CascadeType.PERSIST.ALL})
+    @OneToMany (mappedBy = "compra", cascade = {CascadeType.ALL})
     private List< CompraProducto> productos;
 
     public Integer getIdCompra() {
@@ -61,12 +61,12 @@ public class Compra {
         this.fecha = fecha;
     }
 
-    public String getMadioPago() {
-        return madioPago;
+    public String getMedioPago() {
+        return medioPago;
     }
 
-    public void setMadioPago(String madioPago) {
-        this.madioPago = madioPago;
+    public void setMedioPago(String medioPago) {
+        this.medioPago = medioPago;
     }
 
     public String getComentario() {
