@@ -9,9 +9,6 @@ import java.util.List;
 public class Cliente {
 
     @Id
-    //Ejemplo que no lleva: @ GeneratedValue
-    private Integer idCliente;
-
     private String nombre;
     private String apellidos;
     private Long celular;
@@ -23,14 +20,6 @@ public class Cliente {
     //aqui se conecta con la entidad compra
     @OneToMany (mappedBy = "cliente")
     private List< Compra> compras;
-
-    public Integer getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(Integer idCliente) {
-        this.idCliente = idCliente;
-    }
 
     public String getNombre() {
         return nombre;
@@ -70,5 +59,13 @@ public class Cliente {
 
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
+    }
+
+    public List<Compra> getCompras() {
+        return compras;
+    }
+
+    public void setCompras(List<Compra> compras) {
+        this.compras = compras;
     }
 }
