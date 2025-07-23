@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/products")
 @Tag( name = "Product Controller", description = "Manage products in the store")
@@ -39,6 +40,13 @@ public class ProductController {
 
     // GET /products/all
     @GetMapping("/all")
+    @Operation(
+            summary = "Get all products ",
+            description = "Return if a ID exist"
+    )
+    @ApiResponse(responseCode = "200", description = "Product found")
+    @ApiResponse(responseCode = "404", description = "Product found")
+    @ApiResponse(responseCode = "500", description = "Internal server error")
     public ResponseEntity<List<Product>> getAll() {
         return new ResponseEntity<>(productService.getAll(), HttpStatus.OK);
     }

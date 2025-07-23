@@ -3,6 +3,7 @@ package tecdesoftware.markep_app.persistence.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -35,7 +36,7 @@ public class Compra {
 
     //Relacion con la entidad CompraProducto
     @OneToMany (mappedBy = "compra", cascade = {CascadeType.ALL})
-    private List< CompraProducto> productos;
+    private List<CompraProducto> productos = new ArrayList<>();
 
     public Integer getIdCompra() {
         return idCompra;
